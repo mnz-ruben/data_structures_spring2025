@@ -1,3 +1,10 @@
+# Defining the Node Class
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+# Creating the Linked List Class
 class LinkedList:
     def __init__(self):
         self.head = None  # Initialize an empty list
@@ -12,32 +19,36 @@ class LinkedList:
             self.head = new_node
             return 1  # Success
 
+        # Traverse to find the position to insert at
         temp = self.head
         for i in range(index - 1):
             if temp is None:  # If index is out of range
                 return -1  # Failure
             temp = temp.next
 
-        if temp is None:
+        if temp is None:  # Check if the temp is still None (invalid index)
             return -1  # Failure
 
+        # Insert the new node at the found position
         new_node.next = temp.next
         temp.next = new_node
         return 1  # Success
 
     # Deleting at a specific index
     def LinkedListDelete(self, index):
-        if self.head is None:  # Empty list
+        # Case when the list is empty
+        if self.head is None:
             return -1  # Failure
 
         temp = self.head
 
         # If deleting the head node
         if index == 0:
-            self.head = temp.next
-            temp = None
+            self.head = temp.next  # Move head to the next node
+            temp.next = None  # Disconnect the old head
             return 1  # Success
 
+        # Traverse to find the node to delete
         prev = None
         for i in range(index):
             prev = temp
@@ -45,8 +56,9 @@ class LinkedList:
             if temp is None:
                 return -1  # Failure (index out of range)
 
+        # Update `next` pointer to "skip" the deleted node
         prev.next = temp.next
-        temp = None
+        temp.next = None  # Disconnect the deleted node
         return 1  # Success
 
     # Display function to check the list
